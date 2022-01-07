@@ -1,0 +1,8 @@
+package com.siemplify.producer.repository;
+
+import com.siemplify.producer.model.Task;
+import org.springframework.data.repository.CrudRepository;
+
+public interface TaskRepository extends CrudRepository<Task, Long> {
+
+}
