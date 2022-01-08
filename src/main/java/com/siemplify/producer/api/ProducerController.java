@@ -3,14 +3,13 @@ package com.siemplify.producer.api;
 import com.siemplify.producer.dto.TaskDto;
 import com.siemplify.producer.model.Task;
 import com.siemplify.producer.repository.TaskRepository;
-import com.siemplify.producer.services.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DateTimeException;
 
 @RestController
 @RequestMapping(ProducerController.PREFIX_URL)
@@ -18,8 +17,6 @@ public class ProducerController {
 
     public static final String PREFIX_URL = "/api/producer";
 
-    @Autowired
-    private ProducerService producerService;
     @Autowired
     private TaskRepository taskRepo;
 
@@ -37,6 +34,9 @@ public class ProducerController {
     public ResponseEntity<Task> produceTask(@RequestBody @Validated TaskDto taskDto) {
 
         try {
+            if (!StringUtils.hasLength(taskDto.getConsumerId())) {
+                return new ResponseEntity("Missing consumer Id", HttpStatus.BAD_REQUEST);
+            }
             Task newTask =  new Task(taskDto.getTaskText(), taskDto.getConsumerId());
             Task entity = taskRepo.save(newTask);
             return ResponseEntity.ok(entity);
