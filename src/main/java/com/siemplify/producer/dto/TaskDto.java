@@ -2,6 +2,9 @@ package com.siemplify.producer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * This is Dto object representing task to be submitted
+ */
 public class TaskDto {
 
     private final static String TASK_TEST = "task_text";

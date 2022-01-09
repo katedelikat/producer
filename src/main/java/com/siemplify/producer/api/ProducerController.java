@@ -30,6 +30,18 @@ public class ProducerController {
         }
     }
 
+    /**
+     * Submit task
+     * Example:
+     * POST http://127.0.0.1:8000/api/producer/task/submit
+     *
+     * {
+     *     "task_text": "This is the task text",
+     *     "consumer_id": "ABC"
+     * }
+     * @param taskDto
+     * @return
+     */
     @PostMapping("/task/submit")
     public ResponseEntity<Task> produceTask(@RequestBody @Validated TaskDto taskDto) {
 
